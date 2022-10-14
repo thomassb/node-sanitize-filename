@@ -1,11 +1,11 @@
 # sanitize-filename [![build status](https://secure.travis-ci.org/parshap/node-sanitize-filename.svg?branch=master)](http://travis-ci.org/parshap/node-sanitize-filename)
 
 Sanitize a string to be safe for use as a filename by removing directory
-paths and invalid characters.
+paths and invalid characters. With the ability to truncate to variable and replace white splace
 
 ## Install
 
-[npm: *sanitize-filename*](https://www.npmjs.com/package/sanitize-filename)
+[npm: _sanitize-filename_](https://www.npmjs.com/package/sanitize-filename)
 
 ```
 npm install sanitize-filename
@@ -22,21 +22,23 @@ var UNSAFE_USER_INPUT = "~/.\u0000ssh/authorized_keys";
 // Sanitize the string to be safe for use as a filename.
 var filename = sanitize(UNSAFE_USER_INPUT);
 // -> "~.sshauthorized_keys"
+
+sanitize(UNSAFE_USER_INPUT, { truncate: 10, convertWhiteSpace: "_" });
 ```
 
 ## Details
 
-*sanitize-filename* removes the following:
+_sanitize-filename_ removes the following:
 
- * [Control characters][] (`0x00`–`0x1f` and `0x80`–`0x9f`)
- * [Reserved characters][] (`/`, `?`, `<`, `>`, `\`, `:`, `*`, `|`, and
-   `"`)
- * Unix reserved filenames (`.` and `..`)
- * Trailing periods and spaces ([for Windows][windows trailing])
- * Windows reserved filenames (`CON`, `PRN`, `AUX`, `NUL`, `COM1`,
-   `COM2`, `COM3`, `COM4`, `COM5`, `COM6`, `COM7`, `COM8`, `COM9`,
-   `LPT1`, `LPT2`, `LPT3`, `LPT4`, `LPT5`, `LPT6`, `LPT7`, `LPT8`, and
-   `LPT9`)
+- [Control characters][] (`0x00`–`0x1f` and `0x80`–`0x9f`)
+- [Reserved characters][] (`/`, `?`, `<`, `>`, `\`, `:`, `*`, `|`, and
+  `"`)
+- Unix reserved filenames (`.` and `..`)
+- Trailing periods and spaces ([for Windows][windows trailing])
+- Windows reserved filenames (`CON`, `PRN`, `AUX`, `NUL`, `COM1`,
+  `COM2`, `COM3`, `COM4`, `COM5`, `COM6`, `COM7`, `COM8`, `COM9`,
+  `LPT1`, `LPT2`, `LPT3`, `LPT4`, `LPT5`, `LPT6`, `LPT7`, `LPT8`, and
+  `LPT9`)
 
 [control characters]: https://en.wikipedia.org/wiki/C0_and_C1_control_codes
 [reserved characters]: https://kb.acronis.com/content/39790
@@ -54,9 +56,8 @@ An empty string `""` can be returned. For example:
 
 ```js
 var sanitize = require("sanitize-filename");
-sanitize("..")
+sanitize("..");
 // -> ""
-
 ```
 
 ### Non-unique Filenames
@@ -65,9 +66,9 @@ Two different inputs can return the same value. For example:
 
 ```js
 var sanitize = require("sanitize-filename");
-sanitize("file?")
+sanitize("file?");
 // -> "file"
-sanitize ("*file*")
+sanitize("*file*");
 // -> "file"
 ```
 
@@ -96,8 +97,8 @@ Sanitize `inputString` by removing or replacing invalid characters.
 
 Options:
 
- * `options.replacement`: *optional, string/function, default: `""`*. If passed
- as a string, it's used as the replacement for invalid characters. If passed as
- a function, the function will be called with the invalid characters and it's
- return value will be used as the replacement. See [`String.prototype.replace`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
- for more info.
+- `options.replacement`: _optional, string/function, default: `""`_. If passed
+  as a string, it's used as the replacement for invalid characters. If passed as
+  a function, the function will be called with the invalid characters and it's
+  return value will be used as the replacement. See [`String.prototype.replace`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
+  for more info.

@@ -24,7 +24,7 @@
  * http://unix.stackexchange.com/questions/32795/what-is-the-maximum-allowed-filename-and-folder-size-with-ecryptfs
  *
  * @param  {String} input   Original filename
- * @param  {Object} options {replacement: String | Function }
+ * @param  {Object} options {replacement: String | Function, truncate: integer, convertWhiteSpace:  String | Function }
  * @return {String}         Sanitized filename
  */
 
@@ -36,7 +36,7 @@ var reservedRe = /^\.+$/;
 var windowsReservedRe = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
 var windowsTrailingRe = /[\. ]+$/;
 
-function sanitize(input, replacement) {
+function sanitize(input, replacement, truncateNumber, convertWhiteSpace) {
   if (typeof input !== 'string') {
     throw new Error('Input must be string');
   }
@@ -46,12 +46,18 @@ function sanitize(input, replacement) {
     .replace(reservedRe, replacement)
     .replace(windowsReservedRe, replacement)
     .replace(windowsTrailingRe, replacement);
-  return truncate(sanitized, 255);
+  if (convertWhiteSpace !== null) {
+    sanitized = sanitized.replaceAll(/\s/g, convertWhiteSpace);
+  }
+
+  return truncate(sanitized, truncateNumber);
 }
 
 module.exports = function (input, options) {
   var replacement = (options && options.replacement) || '';
-  var output = sanitize(input, replacement);
+  const truncateNumber = (options && options.truncate) || '255';
+  const convertWhiteSpace = (options && options.convertWhiteSpace) || null;
+  var output = sanitize(input, replacement, truncateNumber, convertWhiteSpace);
   if (replacement === '') {
     return output;
   }
