@@ -1,6 +1,6 @@
 {
-  "name": "sanitize-filename",
-  "version": "1.6.3",
+  "name": "sanitize-filename-truncate",
+  "version": "1.0.1",
   "description": "Sanitize a string for use as a filename",
   "keywords": [
     "file",
@@ -11,12 +11,12 @@
     "escape"
   ],
   "license": "WTFPL OR ISC",
-  "author": "Parsha Pourkhomami",
+  "author": "Parsha Pourkhomami + TF",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:parshap/node-sanitize-filename.git"
+    "url": "git@github.com:thomassb/node-sanitize-filename.git"
   },
   "scripts": {
     "test": "tape test.js",
