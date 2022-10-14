@@ -1,26 +1,25 @@
-# sanitize-filename [![build status](https://secure.travis-ci.org/parshap/node-sanitize-filename.svg?branch=master)](http://travis-ci.org/parshap/node-sanitize-filename)
+# sanitize-filename-truncate
 
-Sanitize a string to be safe for use as a filename by removing directory
-paths and invalid characters. With the ability to truncate to variable and replace white splace
+Sanitize a string to be safe for use as a filename by removing directory paths and invalid characters. With the ability to truncate to variable and replace white space
 
 ## Install
 
-[npm: _sanitize-filename_](https://www.npmjs.com/package/sanitize-filename)
+[npm: _sanitize-filename-truncate_](https://www.npmjs.com/package/sanitize-filename-truncate)
 
 ```
-npm install sanitize-filename
+npm install sanitize-filename-truncate
 ```
 
 ## Example
 
 ```js
-var sanitize = require("sanitize-filename");
+import sanitize from "sanitize-filename-truncate";
 
 // Some string that may be unsafe or invalid as a filename
-var UNSAFE_USER_INPUT = "~/.\u0000ssh/authorized_keys";
+const UNSAFE_USER_INPUT = "~/.\u0000ssh/authorized_keys";
 
 // Sanitize the string to be safe for use as a filename.
-var filename = sanitize(UNSAFE_USER_INPUT);
+const filename = sanitize(UNSAFE_USER_INPUT);
 // -> "~.sshauthorized_keys"
 
 sanitize(UNSAFE_USER_INPUT, { truncate: 10, convertWhiteSpace: "_" });
@@ -44,9 +43,7 @@ _sanitize-filename_ removes the following:
 [reserved characters]: https://kb.acronis.com/content/39790
 [windows trailing]: https://msdn.microsoft.com/en-us/library/aa365247(v=vs.85).aspx#Naming_Conventions
 
-The resulting string is truncated to [255 bytes in length][255]. The
-string will not contain any directory paths and will be safe to use as a
-filename.
+The resulting string is truncated to [255 bytes in length][255]. The string will not contain any directory paths and will be safe to use as a filename.
 
 [255]: http://unix.stackexchange.com/questions/32795/what-is-the-maximum-allowed-filename-and-folder-size-with-ecryptfs
 
@@ -74,8 +71,7 @@ sanitize("*file*");
 
 ### File Systems
 
-Sanitized filenames will be safe for use on modern Windows, OS X, and
-Unix file systems (`NTFS`, `ext`, etc.).
+Sanitized filenames will be safe for use on modern Windows, OS X, and Unix file systems (`NTFS`, `ext`, etc.).
 
 [`FAT` 8.3 filenames][8.3] are not supported.
 
@@ -83,9 +79,7 @@ Unix file systems (`NTFS`, `ext`, etc.).
 
 #### Test Your File System
 
-The test program will use various strings (including the [Big List of
-Naughty Strings][blns]) to create files in the working directory. Run
-`npm test` to run tests against your file system.
+The test program will use various strings (including the [Big List of Naughty Strings][blns]) to create files in the working directory. Run `npm test` to run tests against your file system.
 
 [blns]: https://github.com/minimaxir/big-list-of-naughty-strings
 
@@ -97,8 +91,6 @@ Sanitize `inputString` by removing or replacing invalid characters.
 
 Options:
 
-- `options.replacement`: _optional, string/function, default: `""`_. If passed
-  as a string, it's used as the replacement for invalid characters. If passed as
-  a function, the function will be called with the invalid characters and it's
-  return value will be used as the replacement. See [`String.prototype.replace`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
-  for more info.
+- `options.replacement`: _optional, string/function, default: `""`_. If passed as a string, it's used as the replacement for invalid characters. If passed as a function, the function will be called with the invalid characters and it's return value will be used as the replacement. See [`String.prototype.replace`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) for more info.
+- `options.truncateNumber`: _optional, integer, default: `""`_. If passed truncates returned string
+- `options.convertWhiteSpace`: _optional, string/function, default: `""`_. If passed as a string, it's used as the replacement for whitespace. If passed as a function, the function will be called with whitespace and it's return value will be used as the replacement.
