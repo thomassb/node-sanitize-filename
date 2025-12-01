@@ -28,19 +28,19 @@
  * @return {String}         Sanitized filename
  */
 
-var truncate = require("truncate-utf8-bytes");
+const truncate = require("truncate-utf8-bytes");
 
-var illegalRe = /[\/\?<>\\:\*\|"]/g;
-var controlRe = /[\x00-\x1f\x80-\x9f]/g;
-var reservedRe = /^\.+$/;
-var windowsReservedRe = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
-var windowsTrailingRe = /[\. ]+$/;
+const illegalRe = /[\/\?<>\\:\*\|"]/g;
+const controlRe = /[\x00-\x1f\x80-\x9f]/g;
+const reservedRe = /^\.+$/;
+const windowsReservedRe = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
+const windowsTrailingRe = /[\. ]+$/;
 
 function sanitize(input, replacement, truncateNumber, convertWhiteSpace) {
   if (typeof input !== 'string') {
     throw new Error('Input must be string');
   }
-  var sanitized = input
+  let sanitized = input
     .replace(illegalRe, replacement)
     .replace(controlRe, replacement)
     .replace(reservedRe, replacement)
@@ -54,10 +54,10 @@ function sanitize(input, replacement, truncateNumber, convertWhiteSpace) {
 }
 
 module.exports = function (input, options) {
-  var replacement = (options && options.replacement) || '';
+  const replacement = (options && options.replacement) || '';
   const truncateNumber = (options && options.truncate) || '255';
   const convertWhiteSpace = (options && options.convertWhiteSpace) || null;
-  var output = sanitize(input, replacement, truncateNumber, convertWhiteSpace);
+  const output = sanitize(input, replacement, truncateNumber, convertWhiteSpace);
   if (replacement === '') {
     return output;
   }
