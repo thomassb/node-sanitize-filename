@@ -16,7 +16,7 @@
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:thomassb/node-sanitize-filename.git"
+    "url": "git+ssh://git@github.com/thomassb/node-sanitize-filename.git"
   },
   "scripts": {
     "test": "tape test.js",
