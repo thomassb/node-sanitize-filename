@@ -24,7 +24,7 @@
     "test-browser-sauce": "airtap -- test.js"
   },
   "dependencies": {
-    "truncate-utf8-bytes": "^1.0.0"
+    "truncate-utf8-bytes": "^1.0.2"
   },
   "devDependencies": {
     "airtap": "^2.0.3",
